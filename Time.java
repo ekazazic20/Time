@@ -2,8 +2,8 @@
 /**
  * Time class for Group 3.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Ella Kazazic and Patty Gannon
+ * @version 2018-10
  */
 public class Time
 {
@@ -20,6 +20,7 @@ public class Time
      */
     public Time (int h, int m, int s)
     {
+ 
         hour = h;
         minute = m;
         second = s;
@@ -36,8 +37,9 @@ public class Time
          totalSec = 3600 * hour + 60 * minute + second;
     }
     
-    public static boolean isValidTime ( int h, int m, int s)
+    public static boolean isValidTime (int h, int m, int s)
     {
+        boolean ans = false;
         if (s >= 0 && m >= 0 && h >= 0)
         {
             if (s > 60)
@@ -50,24 +52,54 @@ public class Time
             }
             else 
             {
-                return true;
+                ans = true;
             }
         }
         else 
         {
-            return false;
+            ans = false;
         }
+        return ans;
     }
     
     //Accessor Methods
-    public Time getTime()
+    public int getHours()
     {
-        
+        return hour;
     }
+    
+    public int getMins()
+    {
+        return minute;
+    }
+    
+    public int getSecs()
+    {
+        return second;
+    }
+    
+    public int getTotalSecs()
+    {
+        return 3600 * hour + 60 * minute + second;
+    }
+    
     
     //Other Methods 
     public String toString()
     {
-        
+        /*if (hour < 10)
+        {
+            String hour = "0" + hour;
+        }
+        if (minute < 10)
+        {
+            String minute = "0" + minute;
+        }
+        if (second < 10)
+        {
+            String second = "0" + second;
+        }*/
+        String ans = hour + ":" + minute + ":" + second;
+        return ans;
     }
 }
