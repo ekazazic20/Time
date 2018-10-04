@@ -10,6 +10,7 @@ public class Time
     private int hour;
     private int minute;
     private int second;
+    private int totalSec;
 
     /**
      * Constructor for the class Time3
@@ -20,10 +21,10 @@ public class Time
      */
     public Time (int h, int m, int s)
     {
- 
         hour = h;
         minute = m;
         second = s;
+        totalSec = 3600 * h + 60 * m + s;
     }
     
     public Time (int h, int m)
@@ -39,27 +40,15 @@ public class Time
     
     public static boolean isValidTime (int h, int m, int s)
     {
-        boolean ans = false;
-        if (s >= 0 && m >= 0 && h >= 0)
-        {
-            if (s > 60)
-            {
-                m = m + (s % 60);
-            }
-            else if (m > 60)
-            {
-                h = h + (m % 60);
-            }
-            else 
-            {
-                ans = true;
-            }
-        }
-        else 
-        {
-            ans = false;
-        }
-        return ans;
+        return(h >= 0 && h < 24 &&
+               m >= 0 && m < 60 &&
+               s >= 0 && s < 60);
+    }
+    
+    public static boolean isValidTime (int h, int m)
+    {
+        return(h >= 0 && h < 24 &&
+               m >= 0 && m < 60);
     }
     
     //Accessor Methods
@@ -80,26 +69,43 @@ public class Time
     
     public int getTotalSecs()
     {
-        return 3600 * hour + 60 * minute + second;
+        return totalSec;
     }
     
     
     //Other Methods 
+    
+    public int compareTo (Time other)
+    {
+        return (this.getTotalSecs() - other.getTotalSecs());
+    }
+    
+    public String toStringAmPm()
+    {
+        if (hour > 12)
+        {
+            hour = hour - 12;
+        }
+        return "" + hour;
+    }
+    
+    private String write2digits (int n)     //uhhhhhhhh??
+    {
+        hour = n;
+        if (n < 10) {
+            return "0" + n;
+        }
+        else
+        {
+            return "" + n;      //the "" turns the integer n into a string
+        }
+    }
+
     public String toString()
     {
-        /*if (hour < 10)
-        {
-            String hour = "0" + hour;
-        }
-        if (minute < 10)
-        {
-            String minute = "0" + minute;
-        }
-        if (second < 10)
-        {
-            String second = "0" + second;
-        }*/
-        String ans = hour + ":" + minute + ":" + second;
-        return ans;
+        String stringHours = write2digits (hour);
+        String stringMinutes = write2digits (minute);
+        String stringSeconds = write2digits (second);
+        return stringHours + ":" + stringMinutes + ":" + stringSeconds;
     }
 }
